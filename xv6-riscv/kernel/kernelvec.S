@@ -103,6 +103,14 @@ timervec:
         sd a2, 8(a0)
         sd a3, 16(a0)
 
+
+        # Increment globtime by 4096
+        la t0, globtime      # Load address of globtime into t0
+        ld t1, 0(t0)         # Load globtime into t1
+        li t2, 4096          # Load immediate 4096 into t2
+        add t1, t1, t2       # t1 = t1 + 4096
+        sd t1, 0(t0)         # Store updated globtime back into memory
+
         # schedule the next timer interrupt
         # by adding interval to mtimecmp.
         ld a1, 24(a0) # CLINT_MTIMECMP(hart)
